@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="movie.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Chi Tiết Phim</title>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="logoMAIN-removebg.png" alt="Logo">
+            <span class="logo-text">2Tplay</span>
+        </div>
+        <div class="header-right">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+        </div>
+    </header>
+    <div id="movie-details" class="container"></div>
+    <p>Danh sách tập phim</p>
+    <div id="episode-list" class="container"></div>
+
+    <!-- Thêm hls.js -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+
+            if (slug) {
+                const movieDetailsApiUrl = `https://phimapi.com/phim/${slug}`;
+                fetch(movieDetailsApiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(movieData => {
+                        const movieDetailsDiv = document.getElementById("movie-details");
+                        const episodeListDiv = document.getElementById("episode-list");
+
+                        if (movieData && movieData.movie) {
+                            const movie = movieData.movie;
+
+                            // Hiển thị thông tin cơ bản của phim
+                            movieDetailsDiv.innerHTML = `
+                                <h1>${movie.name}</h1>
+                                <p>Tên gốc: ${movie.origin_name}</p>
+                                <p>Năm: ${movie.year}</p>
+                                <p>Mô tả: ${movie.content}</p>
+                                <img src="${movie.poster_url}" alt="${movie.name} Poster" class="poster">
+                            `;
+
+                            // Nếu phim là series và có các tập phim
+                            if (movieData.status && movieData.episodes && movieData.episodes.length > 0) {
+                                // Hiển thị danh sách các tập phim
+                               
+                                movieData.episodes.forEach((episode, index) => {
+                                    // Lặp qua mỗi đối tượng trong mảng server_data
+                                    episode.server_data.forEach((serverData, serverIndex) => {
+                                        // Hiển thị thông tin của từng tập phim và thêm sự kiện click
+                                        episodeListDiv.innerHTML += `
+                                            <div class="episode" onclick="playEpisode('${serverData.link_m3u8}')">
+                                                <p><strong>Tập ${serverIndex + 1}</strong></p>
+                                            </div>
+                                        `;
+                                    });
+                                });
+                            } else {
+                                episodeListDiv.innerHTML = "<p>Không có thông tin về tập phim.</p>";
+                            }
+                        } else {
+                            movieDetailsDiv.innerHTML = "<p>Không tìm thấy dữ liệu phim.</p>";
+                        }
+                    })
+                    .catch(error => console.error("Error fetching movie details:", error));
+            } else {
+                const movieDetailsDiv = document.getElementById("movie-details");
+                movieDetailsDiv.innerHTML = "<p>Slug không tồn tại.</p>";
+            }
+        });
+
+        function playEpisode(episodeUrl) {
+            window.location.href = `play.html?url=${encodeURIComponent(episodeUrl)}`;
+        }
+    </script>
+
+<footer>
+    <div class="container">
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h3>Giới Thiệu</h3>
+                <p>Chào mừng bạn đến với trang web xem phim của chúng tôi. Chúng tôi cung cấp các bộ phim mới nhất và hấp dẫn nhất cho bạn thưởng thức.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Liên Hệ</h3>
+                <ul>
+                    <li>Email: nguyentrongban01052003.com</li>
+                    <li>Hotline: 123-456-7890</li>
+                    <li>Địa Chỉ: 123 Đường, Thành Phố, Quốc Gia</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Theo Dõi Chúng Tôi</h3>
+                <ul class="social-icons">
+                    <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">&copy; 2024 2Tplay. Bản quyền thuộc về 2Tplay.</p>
+    </div>
+</footer>
+</body>
+</html>

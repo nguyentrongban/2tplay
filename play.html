@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="movie.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Phát Tập Phim</title>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="logoMAIN-removebg.png" alt="Logo">
+            <span class="logo-text">2Tplay</span>
+        </div>
+        <div class="header-right">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+        </div>
+    </header>
+    
+    <div id="player-container">
+        <video id="player" controls crossorigin playsinline></video>
+        <button onclick="goBack()">Quay lại</button>
+    </div>
+
+    <!-- Thêm hls.js -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const episodeUrl = urlParams.get('url');
+
+            if (episodeUrl) {
+                const player = document.getElementById('player');
+
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(episodeUrl);
+                    hls.attachMedia(player);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                        player.play();
+                    });
+                } else if (player.canPlayType('application/vnd.apple.mpegurl')) {
+                    player.src = episodeUrl;
+                    player.addEventListener('canplay', function() {
+                        player.play();
+                    });
+                }
+            } else {
+                alert("URL tập phim không hợp lệ.");
+            }
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+<footer>
+    <div class="container">
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h3>Giới Thiệu</h3>
+                <p>Chào mừng bạn đến với trang web xem phim của chúng tôi. Chúng tôi cung cấp các bộ phim mới nhất và hấp dẫn nhất cho bạn thưởng thức.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Liên Hệ</h3>
+                <ul>
+                    <li>Email: nguyentrongban01052003.com</li>
+                    <li>Hotline: 123-456-7890</li>
+                    <li>Địa Chỉ: 123 Đường, Thành Phố, Quốc Gia</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Theo Dõi Chúng Tôi</h3>
+                <ul class="social-icons">
+                    <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">&copy; 2024 2Tplay. Bản quyền thuộc về 2Tplay.</p>
+    </div>
+</footer>
+</body>
+</html>

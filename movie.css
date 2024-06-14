@@ -1,0 +1,349 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+
+.movie h2 {
+    margin: 0 0 10px;
+}
+
+.movie p {
+    margin: 0;
+}
+
+/* CSS để điều chỉnh kích thước của hình ảnh poster */
+#movie-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Cột tự động điều chỉnh độ rộng */
+    gap: 20px; /* Khoảng cách giữa các ô phim */
+    padding: 20px; /* Khoảng cách từ mép màn hình */
+    box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước ngoài */
+}
+
+.movie {
+    text-align: center; /* Căn giữa nội dung */
+    border-radius: 10px; /* Đường viền bo tròn */
+    overflow: hidden; /* Đảm bảo văn bản không tràn ra ngoài ô */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng để làm nổi bật phần nội dung */
+    position: relative; /* Để vị trí tương đối cho phần text */
+}
+
+.poster-image {
+    width: 100%; /* Kích thước ảnh phù hợp với độ rộng của phim */
+    height: 80%; /* Chiều cao tự động để không bị bóp méo ảnh */
+    border-radius: 10px; /* Đường viền bo tròn cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh vừa đủ kích thước mà không bị kéo dãn */
+}
+
+/* Định dạng tiêu đề */
+/* Header */
+/* Header */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container {
+    flex: 0 0 auto; /* Không thay đổi kích thước của logo */
+    margin-right: 10px; /* Khoảng cách giữa logo và text */
+}
+
+.header-left img {
+    height: 50px; /* Thiết lập chiều cao của logo */
+}
+
+.logo-text {
+    font-size: 24px; /* Kích thước chữ của logo-text */
+    font-weight: bold; /* Độ đậm của chữ */
+    margin-left: 10px; /* Khoảng cách giữa logo và text */
+}
+
+.header-right {
+    display: flex; /* Sử dụng flexbox để căn chỉnh các phần tử bên trong */
+    align-items: center; /* Căn giữa các phần tử */
+}
+
+.header-right input[type="text"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    margin-right: 5px; /* Khoảng cách giữa input và button */
+    width: 150px; /* Độ rộng của input */
+}
+
+.header-right button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+    .header-left {
+        flex: 1; /* Cho phép logo và dòng chữ chuyển xuống dưới nhau */
+        justify-content: flex-start; /* Căn trái cho phần từ trái */
+    }
+
+    .header-left img {
+        height: 40px; /* Giảm chiều cao của logo cho phù hợp với không gian hẹp hơn */
+    }
+
+    .logo-text {
+        font-size: 18px; /* Giảm kích thước chữ trên điện thoại */
+        margin-left: 5px; /* Giảm khoảng cách giữa logo và text */
+    }
+
+    .header-right {
+        flex: 1; /* Cho phép thanh tìm kiếm và nút tìm kiếm chuyển xuống dưới nhau */
+        justify-content: flex-end; /* Căn phải cho phần tử phải */
+    }
+
+    .header-right input[type="text"] {
+        width: 100%; /* Chiều rộng của input tự động theo phần tử cha */
+        margin-right: 0; /* Loại bỏ khoảng cách bên phải */
+    }
+
+    .header-right button {
+        margin-left: 5px; /* Khoảng cách bên trái cho nút tìm kiếm */
+    }
+}
+
+
+
+
+.movie h2 {
+    margin: 10px;
+    white-space: nowrap; /* Ngăn chặn đoạn văn bản bị ngắt dòng */
+    overflow: hidden; /* Ẩn phần văn bản bị tràn ra ngoài */
+    text-overflow: ellipsis; /* Hiển thị dấu ba chấm (...) nếu văn bản quá dài */
+    /* position: absolute; Vị trí tuyệt đối để chèn dấu ba chấm */
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    font-size: 18px; /* Kích thước font chữ nhỏ hơn */
+}
+.movie p{
+    color: #9ca3af;
+    font-weight: 540;
+    font-size: 14px;
+}
+
+#pagination {
+    display: flex;
+    justify-content: center; /* Căn giữa các phần tử bên trong theo chiều ngang */
+    margin-top: 20px; /* Khoảng cách từ phân trang lên phần movie-list */
+}
+#pagination button {
+    margin: 2 5px; /* Khoảng cách ngang 5px giữa các nút phân trang */
+}
+
+
+
+
+/* Điều chỉnh khung video trang play.html */
+#player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Điều chỉnh kích thước video */
+video {
+    width: 100%; /* Chiều rộng tối đa của video là 100% của phần tử cha */
+    max-width: 800px; /* Tối đa chiều rộng là 800px để tránh việc quá lớn trên các thiết bị lớn */
+    height: auto; /* Chiều cao tự động để giữ nguyên tỷ lệ khung hình */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px; /* Thêm khoảng cách dưới video */
+}
+
+/* Màu nút phân trang */
+button {
+    background-color: #8e8585;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 5px; /* Thêm khoảng cách bên phải cho mỗi nút */
+}
+
+button:hover {
+    background-color: #b0afaf;
+}
+
+
+/* end-play.html */
+
+
+
+/* điều chỉnh trang moviedetail-chitietphim */
+/* Đặt font chữ và màu nền tổng thể cho trang */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #141414;
+    color: #fff;
+}
+
+/* Định dạng các phần tử chứa nội dung */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+
+/* Định dạng phần chi tiết phim */
+#movie-details {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.poster {
+    width: 300px;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Định dạng danh sách tập phim */
+#episode-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.episode {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    flex: 1 0 21%; /* Responsive layout: 5 items per row */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    cursor: pointer;
+    text-align: center;
+}
+
+.episode:hover {
+    transform: scale(1.05);
+}
+
+.episode p {
+    margin: 0;
+    color: #e50914;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* end-chitietphim */
+
+
+/* render-phan-trang */
+
+.current-page {
+    font-weight: bold; /* Đổi font mạnh cho số trang hiện tại */
+    color: rgb(123, 14, 14); /* Thay đổi màu của số trang hiện tại */
+}
+
+/* end-phantrang */
+
+
+
+/* footer */
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 50px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-columns {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    width: 30%;
+    margin-bottom: 30px;
+}
+
+.footer-column h3 {
+    color: #fff;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+.social-icons {
+    display: flex;
+    padding: 0;
+}
+
+.social-icons li {
+    margin-right: 10px;
+}
+
+.social-icons a {
+    color: #fff;
+}
+
+.social-icons a:hover {
+    color: #ccc;
+}
+
+hr {
+    border-top: 1px solid #666;
+    margin: 20px 0;
+}
+
+.copyright {
+    text-align: center;
+}
+
+
+/* end-footer */
